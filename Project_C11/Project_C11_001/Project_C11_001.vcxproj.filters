@@ -27,6 +27,9 @@
     <ClInclude Include="UtilsMacro.h">
       <Filter>源文件</Filter>
     </ClInclude>
+    <ClInclude Include="tinyxml\tinyxml.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Project_C11_001.cpp">

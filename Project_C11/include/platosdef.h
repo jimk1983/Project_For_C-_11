@@ -320,6 +320,7 @@ typedef unsigned long long      SIZE_T;
 #define atomic_sub(x,y) __sync_sub_and_fetch((x),(y)) 
 
 #elif  VOS_PLAT_WIN
+/*该处定义的是纯C的头文件，C++的请包含在UtilsMacro.h中*/
 #include <Winsock2.h>
 #include <Windows.h>
 #include <WS2tcpip.h>
@@ -335,6 +336,10 @@ typedef unsigned long long      SIZE_T;
 #include <stdlib.h>
 #include <ShlObj.h>
 #include <signal.h>
+#include <time.h>
+#include <stdarg.h>
+#include <assert.h>
+#include <ctype.h> 
 #pragma comment(lib, "ws2_32.lib")
 #pragma comment(lib, "Winmm.lib")
 

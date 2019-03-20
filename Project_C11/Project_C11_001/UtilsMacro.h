@@ -1,4 +1,9 @@
+#ifndef _UTILS_MACRO_H_
+#define _UTILS_MACRO_H_
+
 #include "platosdef.h"
+#include <iostream>
+#include <string>
 #include <iostream>
 #include <vector>
 #include <list>
@@ -15,8 +20,5 @@
 #include <complex>
 #include <limits>
 
-#include <time.h>
-#include <stdarg.h>
-#include <assert.h>
-#include <ctype.h> 
 
+#endif

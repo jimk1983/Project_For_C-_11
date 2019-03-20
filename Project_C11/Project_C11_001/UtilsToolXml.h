@@ -7,15 +7,43 @@
 5. 获取标签的中间值
 6. 获取相对路径下的配置文件路径*/
 
+/*规则:
+  <ROOT> </ROOT> ---称之为元素
+  <ROOT><Node>aaa</Node></ROOT> ---元素接节点,节点中间可以设置值
+  <ROOT><attr name="aaa"/></ROOT> ---元素接属性，属性可以有多个*/
+#include "UtilsMacro.h"
 #include "tinyxml/tinyxml.h"
 
 namespace UtilsFrame
 {
+    /**********************************************************************/
+    /************************** 文件加载和清理 ****************************/
+    /**********************************************************************/
+    /*根据文件缓存加载*/
+    bool ParseFile(const std::string& sFileBuffer, TiXmlDocument& XmlDoc);
     /*加载XML文件*/
     bool LoadFile(const std::string& sFilePath, TiXmlDocument& XmlDoc);
     bool LoadFile(const char* pcFilePath, TiXmlDocument& XmlDoc);
     /*清理XML文件*/
     bool ClearFile(TiXmlDocument& XmlDoc);
+    /*将xml文件转换到buffer中*/
+    bool XDocToString(const TiXmlDocument& XmlDoc, std::string& sFileBuffer);
+    /**********************************************************************/
+    /************************** 节点解析和处理 ****************************/
+    /**********************************************************************/
+    /*获取单个根元素*/
+    bool GetRootElement(const TiXmlDocument& XmlDoc, const std::string &sRootName, TiXmlElement **ppstRootElement);
+    /*获取根元素集合*/
+    bool GetRootElement(const TiXmlDocument& XmlDoc, const std::string &sRootName, std::vector<const TiXmlElement*> &vElements);
+
+    /*是否为根节点*/
+    bool IsRoot(const TiXmlNode* pstXmlNode);
+    /**********************************************************************/
+    /************************** 节点解析和处理 ****************************/
+    /**********************************************************************/
+    
+    
+    
 }
 
 

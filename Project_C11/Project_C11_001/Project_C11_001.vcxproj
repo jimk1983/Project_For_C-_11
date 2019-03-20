@@ -154,6 +154,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\include\platosdef.h" />
+    <ClInclude Include="tinyxml\tinyxml.h" />
     <ClInclude Include="UtilsMacro.h" />
     <ClInclude Include="UtilsToolStd.h" />
     <ClInclude Include="UtilsToolXml.h" />
