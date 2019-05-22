@@ -3,61 +3,43 @@
 <Version>001</Version>
 
 <!-- 全局服务器类型的注册信息-->
-<!-- 防止出错，ID递增方式, 和后面需要匹配，用于校验配置是否争取-->
+<!-- 防止出错，ID递增方式, 和后面需要匹配，用于校验配置是否一致-->
 <GlobalServerType>
-<ServerType LabelId="001" Name="Access" />
-<ServerType LabelId="002" Name="Corss"/>
-<ServerType LabelId="003" Name="Login" />
-<ServerType LabelId="004" Name="DataSync"/>
-<ServerType LabelId="005" Name="Offline"/>
+	<!-- 根据服务器的类型对应每个服务器协议规则-->
+	<!-- 注意所有的协议命令是不可重复的,确保是唯一的 -->
+	
+	<!-- ********************************************-->
+	<!-- *************  1.通信接入服务器  ***********-->
+	<!-- ********************************************-->
+	<!-- **** 如下的定义了GAccess的两个协议规则 *****-->
+	<ServerInfo GroupName="GAccess" GroupId="001"  RuleId="01" LevelCode1="001" LevelCode2="001" LevelCode3="001" LevelCode4="000" LevelCode5="000" LevelCode6="000" LevelCode7="000"/>
+	<ServerInfo GroupName="GAccess" GroupId="001"  RuleId="02" LevelCode1="001" LevelCode2="002" LevelCode3="003" LevelCode4="000" LevelCode5="000" LevelCode6="000" LevelCode7="000"/>
+	
+	<!-- ********************************************-->
+	<!-- *************  2.交叉通信服务器  ***********-->
+	<!-- ********************************************-->
+	<ServerInfo GroupName="GCorss"  GroupId="002"  RuleId="01" LevelCode1="002" LevelCode2="001" LevelCode3="001" LevelCode4="000" LevelCode5="000" LevelCode6="000" LevelCode7="000"/>
+	<ServerInfo GroupName="GCorss"  GroupId="002"  RuleId="02" LevelCode1="002" LevelCode2="002" LevelCode3="001" LevelCode4="000" LevelCode5="000" LevelCode6="000" LevelCode7="000"/>
+	<ServerInfo GroupName="GCorss"  GroupId="002"  RuleId="03" LevelCode1="002" LevelCode2="003" LevelCode3="001" LevelCode4="000" LevelCode5="000" LevelCode6="000" LevelCode7="000"/>
+	
+	<!-- ********************************************-->
+	<!-- *************  3.登录服务器  ***************-->
+	<!-- ********************************************-->
+	<ServerInfo GroupName="GLogin"  GroupId="003"  RuleId="01" LevelCode1="003" LevelCode2="001" LevelCode3="001" LevelCode4="000" LevelCode5="000" LevelCode6="000" LevelCode7="000"/>
+	<ServerInfo GroupName="GLogin"  GroupId="003"  RuleId="02" LevelCode1="003" LevelCode2="002" LevelCode3="001" LevelCode4="000" LevelCode5="000" LevelCode6="000" LevelCode7="000"/>
+	<ServerInfo GroupName="GLogin"  GroupId="003"  RuleId="03" LevelCode1="003" LevelCode2="003" LevelCode3="001" LevelCode4="000" LevelCode5="000" LevelCode6="000" LevelCode7="000"/>
+	
+	<!-- ********************************************-->
+	<!-- *************  4.数据上云服务器  ***********-->
+	<!-- ********************************************-->
+	<ServerInfo GroupName="GDataSync" GroupId="004"  RuleId="01" LevelCode1="001" LevelCode2="001" LevelCode3="001" LevelCode4="000" LevelCode5="000" LevelCode6="000" LevelCode7="000"/>
+	
+	<!-- ********************************************-->
+	<!-- *************  5.离线消息服务器  ***********-->
+	<!-- ********************************************-->
+	<ServerInfo GroupName="GOffline" GroupId="005"  RuleId="01" LevelCode1="001" LevelCode2="001" LevelCode3="001" LevelCode4="000" LevelCode5="000" LevelCode6="000" LevelCode7="000"/>
+	
 </GlobalServerType>
-
-<!-- 使用的配置组 -->
-<InitSystemCfg>
-<GroupServers GroupLabelName="GP001"/>
-</InitSystemCfg>
-
-<!-- 根据服务器的类型对应每个服务器协议规则-->
-<!-- ********************************************-->
-<!-- *************  1.通信接入服务器  ***********-->
-<!-- ********************************************-->
-<ServerCfg LabelId="001" Name="Access">
-	<!-- 服务器分组配置: 按照组名称 "GP001"-->
-	<GroupServers GroupLabel="GP001" >
-		<!-- 该组类型的分发协议规则-->
-		<ProtoColRule Name="Login" 	  Enable="1" LevelCode1="001" LevelCode2="001" LevelCode3="001" LevelCode4="none" LevelCode5="none" LevelCode6="none" LevelCode7="none" />
-		<ProtoColRule Name="Corss" 	  Enable="1" LevelCode1="002" LevelCode2="001" LevelCode3="none" LevelCode4="none" LevelCode5="none" LevelCode6="none" LevelCode7="none" />
-		<ProtoColRule Name="DataSync" Enable="1" LevelCode1="003" LevelCode2="002" LevelCode3="003" LevelCode4="001" LevelCode5="none" LevelCode6="none" LevelCode7="none" />
-		<ProtoColRule Name="Offline"  Enable="0" LevelCode1="003" LevelCode2="002" LevelCode3="003" LevelCode4="001" LevelCode5="none" LevelCode6="none" LevelCode7="none" />
-	</GroupServers>
-	<!-- 服务器分组进行配置: 按照组名称 "GP002"-->
-	<GroupServers GroupLabel="GP002">
-		<!-- 该组类型的分发协议规则-->
-		<ProtoColRule Name="Login" 	  Enable="1" LevelCode1="001" LevelCode2="001" LevelCode3="none" LevelCode4="none" LevelCode5="none" LevelCode6="none" LevelCode7="none" />
-		<ProtoColRule Name="Corss" 	  Enable="1" LevelCode1="002" LevelCode2="001" LevelCode3="001" LevelCode4="none" LevelCode5="none" LevelCode6="none" LevelCode7="none" />
-		<ProtoColRule Name="DataSync" Enable="1" LevelCode1="003" LevelCode2="002" LevelCode3="003" LevelCode4="001" LevelCode5="none" LevelCode6="none" LevelCode7="none" />
-	</GroupServers>
-</ServerCfg>
-
-<!-- ********************************************-->
-<!-- *************  2.交叉通信服务器  ***********-->
-<!-- ********************************************-->
-<ServerCfg LabelId="002" Name="Corss">
-	<!-- 分组配置: 按照组名称 "GP001"-->
-	<GroupServers GroupLabel="GP001" >
-		<!-- 该组类型的分发协议规则-->
-		<ProtoColRule Name="offline"  Enable="1" LevelCode1="001" LevelCode2="none" LevelCode3="none" LevelCode4="none" LevelCode5="none" LevelCode6="none" LevelCode7="none" />
-		<ProtoColRule Name="Access"  Enable="1" LevelCode1="001" LevelCode2="none" LevelCode3="none" LevelCode4="none" LevelCode5="none" LevelCode6="none" LevelCode7="none" />
-	</GroupServers>
-	<!-- 服务器分组进行配置: 按照组名称 "GP002"-->
-	<GroupServers GroupLabel="GP002">
-		<!-- 该组类型的分发协议规则-->
-		<ProtoColRule Name="Login" 	  Enable="1" LevelCode1="001" LevelCode2="001" LevelCode3="001" LevelCode4="001" LevelCode5="001" LevelCode6="001" LevelCode7="001" />
-		<ProtoColRule Name="DataSync" Enable="1" LevelCode1="003" LevelCode2="002" LevelCode3="003" LevelCode4="001" LevelCode5="001" LevelCode6="001" LevelCode7="001" />
-	</GroupServers>
-</ServerCfg>
-
-
 
 
 
