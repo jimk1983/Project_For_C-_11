@@ -23,10 +23,7 @@
     <ClCompile Include="pch.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Project_C11_002.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="vector.cpp">
+    <ClCompile Include="Project_const.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
