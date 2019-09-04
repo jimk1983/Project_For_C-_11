@@ -162,6 +162,7 @@
     </ClCompile>
     <ClCompile Include="Project_C11_002.cpp" />
     <ClCompile Include="vector.cpp" />
+    <ClCompile Include="vector_struct.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
