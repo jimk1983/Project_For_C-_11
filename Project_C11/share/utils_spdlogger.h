@@ -4,6 +4,7 @@
 #include <memory>
 #include <string>
 #include <iostream>
+#include <array>
 #include <spdlog/spdlog.h>
 #include "spdlog/sinks/basic_file_sink.h"
 #include "spdlog/common.h"
@@ -14,18 +15,17 @@
 #include "utils/utils_singleton.hpp"
 
 
-enum log_level_enum
-{
-    log_level_trace= SPDLOG_LEVEL_TRACE,
-    log_level_debug= SPDLOG_LEVEL_DEBUG,
-    log_level_info= SPDLOG_LEVEL_INFO,
-    log_level_warn= SPDLOG_LEVEL_WARN,
-    log_level_error= SPDLOG_LEVEL_ERROR,
-    log_level_critical= SPDLOG_LEVEL_CRITICAL,
-    log_level_off= SPDLOG_LEVEL_OFF,
 
-    log_level_nums
-};
+typedef enum
+{
+    log_module_type_default = 0,
+    log_module_type_gw_login,
+    log_module_type_gw_access,
+
+    log_module_type_nums
+}log_module_type_e;
+
+
 
 class SpdLoger
 {
@@ -34,21 +34,24 @@ public:
 	~SpdLoger();
 
 	bool Init(const std::string& logPath);
-	void unInit();
-    const std::shared_ptr<spdlog::logger>& GetLoger() { return m_loger_; }
-    void SetLevel(const log_level_enum log_level);
-
+    void UnInit();
+    const std::shared_ptr<spdlog::logger>& GetLoger(const log_module_type_e& log_type);
+    void LogtypeRegister(const log_module_type_e& log_type);
+    void LogtypeSetLevel(const log_module_type_e& log_type, const spdlog::level::level_enum& log_level);
 private:
-    std::shared_ptr<spdlog::logger>     m_loger_;
-    uint32_t                            m_file_size_;
-    uint32_t                            m_file_rotanums_;
+    std::vector<spdlog::sink_ptr>           m_sinks_;
+    std::array<std::shared_ptr<spdlog::logger>, log_module_type_nums>     m_arry_loger_;
+    uint32_t                                m_file_size_;
+    uint32_t                                m_file_rotanums_;
 };
 
-typedef Singleton<SpdLoger>             CSingletonSpdLoger; 
-#define SPDLOGOUT_Init(log_path)        CSingletonSpdLoger::instance().Init(log_path);
-#define SPDLOGOUT_UnInit()              CSingletonSpdLoger::instance().unInit();
-#define SPDLOGOUT_SetLevel(log_level)   CSingletonSpdLoger::instance().SetLevel(log_level)
-#define SPDLOGOUT_Flush()               CSingletonSpdLoger::instance().GetLoger()->flush_on(spdlog::level::trace);
-#define SPDLOGOUT                       CSingletonSpdLoger::instance().GetLoger()
+typedef Singleton<SpdLoger>                 CSingletonSpdLoger; 
+#define SPDLOGOUT_Init(log_path)            CSingletonSpdLoger::instance().Init(log_path);
+#define SPDLOGOUT_UnInit()                  CSingletonSpdLoger::instance().UnInit();
+#define SPDLOGOUT_Register(mType)           CSingletonSpdLoger::instance().LogtypeRegister(mType);
+
+#define SPDLOGOUT_SetLevel(mType,mLevel)    CSingletonSpdLoger::instance().GetLoger(mType)->set_level(mLevel)
+#define SPDLOGOUT_Flush(mType, mLevel)      CSingletonSpdLoger::instance().GetLoger(mType)->flush_on(mLevel);
+#define SPDLOGOUT(mType)                    CSingletonSpdLoger::instance().GetLoger(mType)
 
 #endif 
